@@ -25,7 +25,9 @@ class Config:
     @classmethod
     def validate(cls):
         """Validate required configuration."""
-        if not cls.NEWS_API_KEY:
+        # Re-load in case environment changed
+        api_key = os.getenv('NEWS_API_KEY', '')
+        if not api_key:
             raise ValueError(
                 "NEWS_API_KEY is required. "
                 "Please set it in .env file or environment variable."
